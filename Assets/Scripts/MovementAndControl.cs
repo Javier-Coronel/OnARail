@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovementAndControl : MonoBehaviour
 {
+    public GameObject mainTrack;
+
     public float maxMovementOnX=5;
     public float maxMovementOnZ=5;
     public float velocity = 1;
@@ -60,6 +62,17 @@ public class MovementAndControl : MonoBehaviour
                 rightHandObject = other.gameObject;
                 Equip(other.gameObject, false);
             }
+        }
+        if (other.CompareTag("Interactable"))
+        {
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Route"))
+        {
+
         }
     }
     void Equip(GameObject objectToEquip, bool toLeftHand)
