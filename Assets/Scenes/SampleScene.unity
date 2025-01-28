@@ -242,7 +242,6 @@ GameObject:
   - component: {fileID: 392969861}
   - component: {fileID: 392969860}
   - component: {fileID: 392969864}
-  - component: {fileID: 392969865}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -258,12 +257,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 392969858}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2088543541}
+  m_Father: {fileID: 1651268635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &392969860
 MonoBehaviour:
@@ -277,10 +276,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56600b3547b68d42abfaf50789d6618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainTrack: {fileID: 0}
+  mainTrack: {fileID: 1467680266}
+  cartAnimator: {fileID: 2088543542}
   maxMovementOnX: 5
   maxMovementOnZ: 5
-  velocity: 0.1
+  velocity: 5
+  dashTime: 0.2
+  dashSpeed: 4
 --- !u!65 &392969861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -379,27 +381,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &392969865
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 392969858}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 613ab55a24839d64d8e2220d2c9c0b33, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &546699622
 GameObject:
   m_ObjectHideFlags: 0
@@ -613,7 +594,7 @@ GameObject:
   - component: {fileID: 909745922}
   - component: {fileID: 909745921}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Door
   m_TagString: Route
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -903,11 +884,15 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 0, y: 0, z: 0}
     roll: 0
+  - position: {x: 0, y: 0, z: 20}
+    roll: 0
   - position: {x: 0, y: 0, z: 30}
     roll: 0
-  - position: {x: 1, y: 0, z: 39}
+  - position: {x: 2, y: 0, z: 38}
     roll: 0
   - position: {x: 10, y: 0, z: 40}
+    roll: 0
+  - position: {x: 20, y: 0, z: 40}
     roll: 0
   - position: {x: 40, y: 0, z: 40}
     roll: 0
@@ -926,6 +911,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1651268634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651268635}
+  m_Layer: 0
+  m_Name: PlayerRotation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1651268635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651268634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 392969859}
+  m_Father: {fileID: 2088543541}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2034533578
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +954,7 @@ GameObject:
   - component: {fileID: 2034533579}
   - component: {fileID: 2034533580}
   m_Layer: 0
-  m_Name: Dolly Track
+  m_Name: Secondary Dolly Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,9 +996,9 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 0, y: 0, z: -6.25}
     roll: 0
-  - position: {x: -4.4899106, y: 0, z: 9.620481}
+  - position: {x: -3, y: 0, z: 10.75}
     roll: 0
-  - position: {x: -20, y: 0, z: 14}
+  - position: {x: -20, y: 0, z: 13.75}
     roll: 0
 --- !u!1 &2088543539
 GameObject:
@@ -1026,13 +1043,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088543539}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.0010098082, z: 0, w: 0.9999995}
+  m_LocalRotation: {x: 0, y: 0.0005662515, z: 0, w: 0.9999999}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 963194228}
-  - {fileID: 392969859}
+  - {fileID: 1651268635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2088543542
@@ -1048,7 +1065,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f3d60d8e3953b344e86400980b6739a2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
