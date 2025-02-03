@@ -15,6 +15,7 @@ public class MovementAndControl : MonoBehaviour
     private float dashTimer=0;
     private GameObject leftHandObject = null;
     private GameObject rightHandObject = null;
+    public Collider ownCollider;
     private float xMovement;
     private float zMovement;
     private bool dash;
@@ -53,6 +54,7 @@ public class MovementAndControl : MonoBehaviour
             if (dashTimer >= dashTime)
             {
                 dashTimer = 0;
+                ownCollider.enabled = true;
                 GetComponent<MeshRenderer>().materials[0].color = Color.white;
                 onDashDirection.x = 0;
                 onDashDirection.z = 0;
@@ -70,19 +72,27 @@ public class MovementAndControl : MonoBehaviour
         {
             transform.Translate(movement * Time.deltaTime);
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Throw(true);
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Throw(false);
+        }
     }
     void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Equipable"))
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (leftHandObject == null)
             {
-                leftHandObject = other.gameObject;
                 Equip(other.gameObject, true);
             }
-            else if (Input.GetKeyDown(KeyCode.Mouse1))
+            else if (rightHandObject == null)
             {
-                rightHandObject = other.gameObject;
+                Debug.Log("HappensAgainAgain");
                 Equip(other.gameObject, false);
             }
         }
@@ -100,14 +110,36 @@ public class MovementAndControl : MonoBehaviour
     }
     void Equip(GameObject objectToEquip, bool toLeftHand)
     {
+        if (toLeftHand) {
+            leftHandObject = objectToEquip;
+            objectToEquip.tag = "Untagged";
+            objectToEquip.SetActive(false);
+        }
+        else
+        {
+            rightHandObject = objectToEquip;
+            objectToEquip.tag = "Untagged";
+            objectToEquip.SetActive(false);
 
+        }
     }
     void Throw(bool fromLeftHand)
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        ray.direction = new Vector3(ray.direction.x, 0, ray.direction.z);
+        ray.origin = new Vector3(ray.origin.x, 0, ray.origin.z);
+        Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers);
         GameObject objectToThrow = fromLeftHand ? leftHandObject : rightHandObject;
         if (objectToThrow != null) { 
-            Instantiate(objectToThrow,transform.position, transform.rotation);
+            //objectToThrow.SetActive(true);
+            GameObject throwedObject = Instantiate(objectToThrow, hit.point, transform.rotation);
+            throwedObject.SetActive(true);
+            throwedObject.tag = "Untagged";
             Destroy(objectToThrow);
+            if (fromLeftHand) {
+                leftHandObject = null;
+            }else rightHandObject = null;
         }
     }
     void Dash(Vector3 direction)
@@ -118,6 +150,7 @@ public class MovementAndControl : MonoBehaviour
         }
         cartAnimator.SetTrigger("Dash");
         GetComponent<MeshRenderer>().materials[0].color = Color.black;
+        ownCollider.enabled = false;
         onDashDirection = direction*dashSpeed;
         Debug.Log(direction);
         Debug.Log(onDashDirection);
