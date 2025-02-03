@@ -95,7 +95,7 @@ public class MovementAndControl : MonoBehaviour
     {
         if (other.CompareTag("Route"))
         {
-
+            other.GetComponent<AltRouteController>().goToAltRoute();
         }
     }
     void Equip(GameObject objectToEquip, bool toLeftHand)
