@@ -92,7 +92,6 @@ public class MovementAndControl : MonoBehaviour
             }
             else if (rightHandObject == null)
             {
-                Debug.Log("HappensAgainAgain");
                 Equip(other.gameObject, false);
             }
         }
@@ -106,6 +105,7 @@ public class MovementAndControl : MonoBehaviour
         if (other.CompareTag("Route"))
         {
             other.GetComponent<AltRouteController>().setAltRoute();
+            other.enabled=false;
         }
     }
     void Equip(GameObject objectToEquip, bool toLeftHand)
@@ -125,13 +125,14 @@ public class MovementAndControl : MonoBehaviour
     }
     void Throw(bool fromLeftHand)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        ray.direction = new Vector3(ray.direction.x, 0, ray.direction.z);
-        ray.origin = new Vector3(ray.origin.x, 0, ray.origin.z);
-        Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers);
         GameObject objectToThrow = fromLeftHand ? leftHandObject : rightHandObject;
-        if (objectToThrow != null) { 
+        if (objectToThrow != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            ray.direction = new Vector3(ray.direction.x, 0, ray.direction.z);
+            ray.origin = new Vector3(ray.origin.x+transform.localPosition.x, 0, ray.origin.z + transform.localPosition.z);
+            Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers);
             //objectToThrow.SetActive(true);
             GameObject throwedObject = Instantiate(objectToThrow, hit.point, transform.rotation);
             throwedObject.SetActive(true);

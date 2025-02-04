@@ -20,11 +20,15 @@ public class AltRouteController : MonoBehaviour
     {
         if(onWayToPath){
             if(Mathf.Abs(GameData.Instance.playerCart.m_Position-GameData.Instance.mainPath.FromPathNativeUnits(MainNodeStart, PositionUnits.Distance))<0.01){
-
-            }else if(GameData.Instance.playerCart.m_Position<GameData.Instance.mainPath.FromPathNativeUnits(MainNodeStart, PositionUnits.Distance)){
-
-            }else{
-                
+                goToAltRoute();
+            }
+            else if(GameData.Instance.playerCart.m_Position<GameData.Instance.mainPath.FromPathNativeUnits(MainNodeStart, PositionUnits.Distance))
+            {
+                GameData.Instance.playerCart.m_Speed = 2;
+            }
+            else
+            {
+                GameData.Instance.playerCart.m_Speed = -2;
             }
         }
         if (ownPath.Equals(GameData.Instance.playerCart.m_Path)){
@@ -42,6 +46,8 @@ public class AltRouteController : MonoBehaviour
         //Debug.Log(GameData.Instance.getPosition(CinemachinePathBase.PositionUnits.PathUnits));
         GameData.Instance.playerCart.m_Path = ownPath;
         GameData.Instance.playerCart.m_Position=0;
+        GameData.Instance.playerCart.m_Speed = 1;
+        onWayToPath = false;
     }
     public void setAltRoute(){
         onWayToPath = true;

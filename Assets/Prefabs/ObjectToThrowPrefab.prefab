@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7070152027454777864}
   - component: {fileID: 297209372645249796}
   - component: {fileID: 1994060575551654288}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PhysicalObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8955707917543364907}
   - component: {fileID: 1365310873520753455}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ObjectToThrowPrefab
   m_TagString: Equipable
   m_Icon: {fileID: 0}
