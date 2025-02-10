@@ -11,6 +11,7 @@ public class AltRouteController : MonoBehaviour
     public int MainNodeFinish;
     public CinemachinePathBase ownPath;
     bool onWayToPath = false;
+    public GameObject[] objectsToEnableDisable;
 
     private void Start() {
         GetComponent<MeshRenderer>().enabled = false;
@@ -37,6 +38,7 @@ public class AltRouteController : MonoBehaviour
             {
                 GameData.Instance.playerCart.m_Path = GameData.Instance.mainPath;
                 GameData.Instance.playerCart.m_Position = GameData.Instance.mainPath.FromPathNativeUnits(MainNodeFinish, PositionUnits.Distance);
+                ChangeStateOfObjects(true);
             }
         }
     }
@@ -48,8 +50,17 @@ public class AltRouteController : MonoBehaviour
         GameData.Instance.playerCart.m_Position=0;
         GameData.Instance.playerCart.m_Speed = 1;
         onWayToPath = false;
+        ChangeStateOfObjects(false);
+
     }
     public void setAltRoute(){
         onWayToPath = true;
+    }
+    void ChangeStateOfObjects(bool enabled)
+    {
+        foreach (GameObject gameObj in objectsToEnableDisable)
+        {
+            gameObj.SetActive(enabled);
+        }
     }
 }

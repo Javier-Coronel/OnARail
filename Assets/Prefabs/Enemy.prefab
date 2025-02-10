@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82e6012c174954a418db5cca34c17e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: 10
+  angle: 30
   physicalEnemy: {fileID: 2875456491082526722}
   detectionZone: {fileID: 7392093836039586397}
   maxDistance: 5
@@ -263,8 +263,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: -0.004673362, y: 1.4673373, z: 0}
-    m_Extent: {x: 1.2136575, y: 1.7100885, z: 0}
+    m_Center: {x: 0.00000011920929, y: 1.584304, z: 0}
+    m_Extent: {x: 1.0233934, y: 1.5931216, z: 0}
   m_SpriteSortPoint: 0
 --- !u!114 &7392093836039586397
 MonoBehaviour:
@@ -313,7 +313,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 0
       m_CornerMode: 0
-  m_SpriteShape: {fileID: 11400000, guid: f24cddf7c09a6442abbce710a6fd7397, type: 2}
+  m_SpriteShape: {fileID: 11400000, guid: 00844965983ebcd498dfd237d51dce68, type: 2}
   m_FillPixelPerUnit: 256
   m_StretchTiling: 1
   m_SplineDetail: 16
