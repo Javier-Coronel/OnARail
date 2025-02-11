@@ -236,19 +236,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Center.x
-      value: 0.00000011920929
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Center.y
-      value: 1.8669103
+      value: 1.8819103
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.8823607
+      value: 1.8973607
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Extent.y
-      value: 1.8780906
+      value: 1.8930906
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Extent.z
@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6083052404439774594, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: maxDistance
-      value: 3.72
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 7392093836039586397, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_Creator
@@ -2189,15 +2189,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Center.y
-      value: 1.1519107
+      value: 1.1319107
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.1673605
+      value: 1.1473607
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_LocalAABB.m_Extent.y
-      value: 1.163091
+      value: 1.143091
       objectReference: {fileID: 0}
     - target: {fileID: 2061309769779464720, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_Sprites.Array.data[0]
@@ -2269,7 +2269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6083052404439774594, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: maxDistance
-      value: 2.29
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 7392093836039586397, guid: 2a2f33c630d19934abeee09dea2c1f31, type: 3}
       propertyPath: m_Creator

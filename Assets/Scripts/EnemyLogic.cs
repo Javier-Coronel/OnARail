@@ -11,6 +11,7 @@ public class EnemyLogic : MonoBehaviour
     public GameObject physicalEnemy;
     public SpriteShapeController detectionZone;
     public float maxDistance = 5;
+    public GameObject bulletPrefab;
     private Vector3 leftMod;
     private Vector3 rightMod;
     // Start is called before the first frame update
@@ -39,15 +40,15 @@ public class EnemyLogic : MonoBehaviour
             {
                 if (left && leftHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer();
+                    AtackPlayer(leftHit.transform);
                 }
                 else if (right && rightHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer();
+                    AtackPlayer(leftHit.transform);
                 }
                 else if (center && centerHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer();
+                    AtackPlayer(leftHit.transform);
                 }
                 Debug.Log("PlayerDetected " + leftHit + " " + rightHit + " " + centerHit);
             }
@@ -79,8 +80,9 @@ public class EnemyLogic : MonoBehaviour
             detectionZone.spline.SetRightTangent(2, Vector3.right * (center - right).magnitude);
         }
     }
-    void AtackPlayer()
+    void AtackPlayer(Transform player)
     {
+        Instantiate(bulletPrefab, transform.position, transform.rotation);
         Debug.Log("Atacado");
     }
 }
