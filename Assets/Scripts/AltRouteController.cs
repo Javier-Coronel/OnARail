@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.Events;
 using static Cinemachine.CinemachinePathBase;
 
 public class AltRouteController : MonoBehaviour
@@ -11,7 +12,8 @@ public class AltRouteController : MonoBehaviour
     public int MainNodeFinish;
     public CinemachinePathBase ownPath;
     bool onWayToPath = false;
-    public GameObject[] objectsToEnableDisable;
+    public UnityEvent onPathEnter;
+    public UnityEvent onPathExit;
 
     private void Start() {
         GetComponent<MeshRenderer>().enabled = false;
@@ -38,7 +40,7 @@ public class AltRouteController : MonoBehaviour
             {
                 GameData.Instance.playerCart.m_Path = GameData.Instance.mainPath;
                 GameData.Instance.playerCart.m_Position = GameData.Instance.mainPath.FromPathNativeUnits(MainNodeFinish, PositionUnits.Distance);
-                ChangeStateOfObjects(true);
+                onPathExit.Invoke();
             }
         }
     }
@@ -50,17 +52,10 @@ public class AltRouteController : MonoBehaviour
         GameData.Instance.playerCart.m_Position=0;
         GameData.Instance.playerCart.m_Speed = 1;
         onWayToPath = false;
-        ChangeStateOfObjects(false);
+        onPathEnter.Invoke();
 
     }
     public void setAltRoute(){
         onWayToPath = true;
-    }
-    void ChangeStateOfObjects(bool enabled)
-    {
-        foreach (GameObject gameObj in objectsToEnableDisable)
-        {
-            gameObj.SetActive(enabled);
-        }
     }
 }

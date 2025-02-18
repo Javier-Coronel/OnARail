@@ -19,7 +19,8 @@ public class EnemyLogic : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-            searchLayer = GameData.Instance.playerCart.gameObject.layer;
+            searchLayer = 1<<GameData.Instance.playerCart.gameObject.layer;
+            Debug.Log(searchLayer);
         }
     }
 
@@ -35,23 +36,21 @@ public class EnemyLogic : MonoBehaviour
             bool left = Physics.Raycast(physicalEnemy.transform.position, (physicalEnemy.transform.forward + leftMod), out RaycastHit leftHit, maxDistance, searchLayer);
             bool right = Physics.Raycast(physicalEnemy.transform.position, (physicalEnemy.transform.forward + rightMod), out RaycastHit rightHit, maxDistance, searchLayer);
             bool center = Physics.Raycast(physicalEnemy.transform.position, physicalEnemy.transform.forward, out RaycastHit centerHit, ((physicalEnemy.transform.forward + rightMod) * maxDistance).magnitude, searchLayer);
+            
             Debug.Log("PlayerDetected " + left + " " + right + " " + center);
-            if (left || right || center)
-            {
+            
                 if (left && leftHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer(leftHit.transform);
-                }
-                else if (right && rightHit.transform.CompareTag("Player"))
+                    AtackPlayer(leftHit.transform.position);
+                }else if (right && rightHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer(leftHit.transform);
-                }
-                else if (center && centerHit.transform.CompareTag("Player"))
+                    AtackPlayer(rightHit.transform.position);
+                }else if (center && centerHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer(leftHit.transform);
+                    AtackPlayer(centerHit.transform.position);
                 }
                 Debug.Log("PlayerDetected " + leftHit + " " + rightHit + " " + centerHit);
-            }
+            
             Debug.DrawRay(physicalEnemy.transform.position, physicalEnemy.transform.forward * ((physicalEnemy.transform.forward + rightMod) * maxDistance).magnitude, Color.white);
             Debug.DrawRay(physicalEnemy.transform.position, (physicalEnemy.transform.forward + leftMod) * maxDistance, Color.blue);
             Debug.DrawRay(physicalEnemy.transform.position, (physicalEnemy.transform.forward + rightMod) * maxDistance, Color.red);
@@ -80,9 +79,9 @@ public class EnemyLogic : MonoBehaviour
             detectionZone.spline.SetRightTangent(2, Vector3.right * (center - right).magnitude);
         }
     }
-    void AtackPlayer(Transform player)
+    void AtackPlayer(Vector3 player)
     {
-        Instantiate(bulletPrefab, transform.position, transform.rotation);
-        Debug.Log("Atacado");
+        Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player-physicalEnemy.transform.position)*bulletPrefab.transform.rotation);
+
     }
 }
