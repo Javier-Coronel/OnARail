@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class MovementAndControl : MonoBehaviour
     private float xMovement;
     private float zMovement;
     private bool dash;
+    private bool onDash = false;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +56,7 @@ public class MovementAndControl : MonoBehaviour
             if (dashTimer >= dashTime)
             {
                 dashTimer = 0;
-                ownCollider.enabled = true;
+                onDash = false;
                 GetComponent<MeshRenderer>().materials[0].color = Color.white;
                 onDashDirection.x = 0;
                 onDashDirection.z = 0;
@@ -84,6 +86,14 @@ public class MovementAndControl : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
+        
+        if (other.CompareTag("Interactable"))
+        {
+
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
         if (other.CompareTag("Equipable"))
         {
             if (leftHandObject == null)
@@ -95,17 +105,20 @@ public class MovementAndControl : MonoBehaviour
                 Equip(other.gameObject, false);
             }
         }
-        if (other.CompareTag("Interactable"))
-        {
-
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
         if (other.CompareTag("Route"))
         {
             other.GetComponent<AltRouteController>().setAltRoute();
             other.enabled=false;
+        }
+        if (other.CompareTag("Enemy")&&!onDash)
+        {
+            GameData.Instance.respawn();
+            Debug.Log("Muerto :(");
+            GameData.Instance.deleteTemporalObjects();
+        }
+        if (other.GetComponent<SpawnPosition>())
+        {
+            GameData.Instance.actualSpawnPosition = other.GetComponent<SpawnPosition>();
         }
     }
     void Equip(GameObject objectToEquip, bool toLeftHand)
@@ -151,9 +164,7 @@ public class MovementAndControl : MonoBehaviour
         }
         cartAnimator.SetTrigger("Dash");
         GetComponent<MeshRenderer>().materials[0].color = Color.black;
-        ownCollider.enabled = false;
+        onDash = true;
         onDashDirection = direction*dashSpeed;
-        Debug.Log(direction);
-        Debug.Log(onDashDirection);
     }
 }

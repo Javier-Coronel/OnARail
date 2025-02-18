@@ -10,13 +10,6 @@ public class ProyectileMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(transform.up*velocity*Time.deltaTime);
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(bullet && other.transform.CompareTag("Player"))
-        {
-            Debug.Log("Muerto :(");
-        }
+        transform.position =Vector3.MoveTowards(transform.position, transform.position+transform.up, velocity*Time.deltaTime);
     }
 }

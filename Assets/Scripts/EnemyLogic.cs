@@ -81,7 +81,6 @@ public class EnemyLogic : MonoBehaviour
     }
     void AtackPlayer(Vector3 player)
     {
-        Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player-physicalEnemy.transform.position)*bulletPrefab.transform.rotation);
-
+        GameData.Instance.objectsToDelete.Add(Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player - physicalEnemy.transform.position) * bulletPrefab.transform.rotation));
     }
 }

@@ -36,7 +36,7 @@ public class AltRouteController : MonoBehaviour
         }
         if (ownPath.Equals(GameData.Instance.playerCart.m_Path)){
             Debug.Log(GameData.Instance.mainPath.FromPathNativeUnits(MainNodeFinish, PositionUnits.Distance));
-            if (Mathf.Abs(GameData.Instance.playerCart.m_Position - ownPath.MaxUnit(PositionUnits.Distance))<0.01f)
+            if (Mathf.Abs(GameData.Instance.playerCart.m_Position - ownPath.MaxUnit(GameData.Instance.playerCart.m_PositionUnits))<0.01f)
             {
                 GameData.Instance.playerCart.m_Path = GameData.Instance.mainPath;
                 GameData.Instance.playerCart.m_Position = GameData.Instance.mainPath.FromPathNativeUnits(MainNodeFinish, PositionUnits.Distance);

@@ -7,6 +7,7 @@ TagManager:
   - Equipable
   - Interactable
   - Route
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Postproccesing
   - 
   - 
   - 
