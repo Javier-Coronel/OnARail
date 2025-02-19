@@ -11,9 +11,10 @@ public class EnemyLogic : MonoBehaviour
     public GameObject physicalEnemy;
     public SpriteShapeController detectionZone;
     public float maxDistance = 5;
-    public GameObject bulletPrefab;
+    public ProyectileMovement bulletPrefab;
     private Vector3 leftMod;
     private Vector3 rightMod;
+    public float bulletVelocity = 15;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,8 +58,8 @@ public class EnemyLogic : MonoBehaviour
             detectionZone.spline.SetPosition(1, (physicalEnemy.transform.up + (Vector3.right * leftAngle)) * maxDistance);
             detectionZone.spline.SetPosition(2, physicalEnemy.transform.up * ((physicalEnemy.transform.forward + rightMod) * maxDistance).magnitude);
             detectionZone.spline.SetPosition(3, (physicalEnemy.transform.up + (Vector3.right * rightAngle)) * maxDistance);
-            detectionZone.spline.SetLeftTangent(2, Vector3.left * maxDistance * .5f);
-            detectionZone.spline.SetRightTangent(2, Vector3.right * maxDistance * .5f);
+            detectionZone.spline.SetLeftTangent(2, Vector3.left * ((physicalEnemy.transform.up + (Vector3.right * leftAngle) - physicalEnemy.transform.up).magnitude));
+            detectionZone.spline.SetRightTangent(2, Vector3.right * ((physicalEnemy.transform.up + (Vector3.right * rightAngle)- physicalEnemy.transform.up).magnitude));
         }
 
 
@@ -81,6 +82,8 @@ public class EnemyLogic : MonoBehaviour
     }
     void AtackPlayer(Vector3 player)
     {
-        GameData.Instance.objectsToDelete.Add(Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player - physicalEnemy.transform.position) * bulletPrefab.transform.rotation));
+        ProyectileMovement gO = Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player - physicalEnemy.transform.position) * bulletPrefab.transform.rotation);
+        GameData.Instance.objectsToDelete.Add(gO.gameObject);
+        gO.velocity = bulletVelocity;
     }
 }

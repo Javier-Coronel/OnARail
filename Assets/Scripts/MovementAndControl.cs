@@ -13,7 +13,7 @@ public class MovementAndControl : MonoBehaviour
     private Vector3 onDashDirection;
     public float dashTime=1;
     public float dashSpeed=1;
-    private float dashTimer=0;
+    public float dashTimer=0;
     private GameObject leftHandObject = null;
     private GameObject rightHandObject = null;
     public Collider ownCollider;
@@ -21,11 +21,12 @@ public class MovementAndControl : MonoBehaviour
     private float zMovement;
     private bool dash;
     private bool onDash = false;
+    private int layer = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        layer = gameObject.layer;
     }
     void Update()
     {
@@ -52,7 +53,7 @@ public class MovementAndControl : MonoBehaviour
         }
         if (onDashDirection.x != 0f || onDashDirection.z != 0f)
         {
-            dashTimer += Time.deltaTime;
+            
             if (dashTimer >= dashTime)
             {
                 dashTimer = 0;
@@ -60,13 +61,14 @@ public class MovementAndControl : MonoBehaviour
                 GetComponent<MeshRenderer>().materials[0].color = Color.white;
                 onDashDirection.x = 0;
                 onDashDirection.z = 0;
+                gameObject.layer = layer;
             }
             else
             {
                 transform.Translate(onDashDirection*Time.deltaTime);
             }
         }
-        else if (dash)
+        else if (dash&&!onDash)
         {
             Dash(movement);
         }
@@ -166,5 +168,6 @@ public class MovementAndControl : MonoBehaviour
         GetComponent<MeshRenderer>().materials[0].color = Color.black;
         onDash = true;
         onDashDirection = direction*dashSpeed;
+        gameObject.layer = 0;
     }
 }
