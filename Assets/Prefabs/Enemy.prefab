@@ -50,7 +50,8 @@ MonoBehaviour:
   physicalEnemy: {fileID: 2875456491082526722}
   detectionZone: {fileID: 7392093836039586397}
   maxDistance: 5
-  bulletPrefab: {fileID: 5949326184036086247, guid: e9df72618cea78e49abd76d53799442c, type: 3}
+  bulletPrefab: {fileID: 4927352481812885858, guid: e9df72618cea78e49abd76d53799442c, type: 3}
+  bulletVelocity: 15
 --- !u!1 &2875456491082526722
 GameObject:
   m_ObjectHideFlags: 0
@@ -66,7 +67,7 @@ GameObject:
   - component: {fileID: 5070612265523086753}
   m_Layer: 0
   m_Name: PhysicalEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -15,6 +15,8 @@ public class EnemyLogic : MonoBehaviour
     private Vector3 leftMod;
     private Vector3 rightMod;
     public float bulletVelocity = 15;
+    private float bulletTime = 5;
+    private float timer = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,18 +41,23 @@ public class EnemyLogic : MonoBehaviour
             bool center = Physics.Raycast(physicalEnemy.transform.position, physicalEnemy.transform.forward, out RaycastHit centerHit, ((physicalEnemy.transform.forward + rightMod) * maxDistance).magnitude, searchLayer);
             
             Debug.Log("PlayerDetected " + left + " " + right + " " + center);
-            
+            timer += Time.deltaTime;
+            if (timer >= bulletTime)
+            {
                 if (left && leftHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer(leftHit.transform.position);
-                }else if (right && rightHit.transform.CompareTag("Player"))
+                    AtackPlayer(leftHit.transform);
+                }
+                else if (right && rightHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer(rightHit.transform.position);
-                }else if (center && centerHit.transform.CompareTag("Player"))
+                    AtackPlayer(rightHit.transform);
+                }
+                else if (center && centerHit.transform.CompareTag("Player"))
                 {
-                    AtackPlayer(centerHit.transform.position);
+                    AtackPlayer(centerHit.transform);
                 }
                 Debug.Log("PlayerDetected " + leftHit + " " + rightHit + " " + centerHit);
+            }
             
             Debug.DrawRay(physicalEnemy.transform.position, physicalEnemy.transform.forward * ((physicalEnemy.transform.forward + rightMod) * maxDistance).magnitude, Color.white);
             Debug.DrawRay(physicalEnemy.transform.position, (physicalEnemy.transform.forward + leftMod) * maxDistance, Color.blue);
@@ -80,10 +87,12 @@ public class EnemyLogic : MonoBehaviour
             detectionZone.spline.SetRightTangent(2, Vector3.right * (center - right).magnitude);
         }
     }
-    void AtackPlayer(Vector3 player)
+    void AtackPlayer(Transform player)
     {
-        ProyectileMovement gO = Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player - physicalEnemy.transform.position) * bulletPrefab.transform.rotation);
+        ProyectileMovement gO = Instantiate(bulletPrefab, physicalEnemy.transform.position, Quaternion.LookRotation(player.position - physicalEnemy.transform.position) * bulletPrefab.transform.rotation);
         GameData.Instance.objectsToDelete.Add(gO.gameObject);
         gO.velocity = bulletVelocity;
+        gO.objective = player;
+        timer = 0;
     }
 }

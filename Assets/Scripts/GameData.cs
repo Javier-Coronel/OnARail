@@ -32,7 +32,7 @@ public class GameData : MonoBehaviour
     }
     public void respawn()
     {
-        playerCart.m_Position = actualSpawnPosition.position;
+        playerCart.m_Position = actualSpawnPosition ? actualSpawnPosition.position:0;
         playerCart.GetComponentInChildren<MovementAndControl>().transform.position=Vector3.zero;
         deleteTemporalObjects();
     }

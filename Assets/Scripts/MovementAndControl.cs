@@ -20,7 +20,7 @@ public class MovementAndControl : MonoBehaviour
     private float xMovement;
     private float zMovement;
     private bool dash;
-    private bool onDash = false;
+    public bool onDash = false;
     private int layer = 0;
 
     // Start is called before the first frame update
@@ -57,11 +57,12 @@ public class MovementAndControl : MonoBehaviour
             if (dashTimer >= dashTime)
             {
                 dashTimer = 0;
-                onDash = false;
                 GetComponent<MeshRenderer>().materials[0].color = Color.white;
                 onDashDirection.x = 0;
                 onDashDirection.z = 0;
                 gameObject.layer = layer;
+
+                GameData.Instance.playerCart.m_Speed = 1;
             }
             else
             {
@@ -166,8 +167,8 @@ public class MovementAndControl : MonoBehaviour
         }
         cartAnimator.SetTrigger("Dash");
         GetComponent<MeshRenderer>().materials[0].color = Color.black;
-        onDash = true;
         onDashDirection = direction*dashSpeed;
+        GameData.Instance.playerCart.m_Speed = 2;
         gameObject.layer = 0;
     }
 }
