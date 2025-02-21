@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; position: relative; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.39);">
+        <ui:GroupBox name="StartingMenu" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+            <ui:Button text="Reanudar" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Back" style="position: absolute; top: 25%; left: 40%; right: 40%; overflow: visible; bottom: 63%; font-size: 14%;" />
+            <ui:Slider label="Volumen de la música" high-value="100" name="MusicVolume" low-value="0" style="position: absolute; left: 0; top: 40%; right: 50%; bottom: 48%; background-color: rgb(188, 188, 188); margin-right: 0; align-items: center;" />
+            <ui:Slider label="Volumen del sonido" high-value="100" name="SFXVolume" inverted="false" low-value="0" style="position: absolute; left: 50%; top: 40%; right: 0; bottom: 48%; background-color: rgb(188, 188, 188); margin-left: 0; border-left-color: rgba(0, 0, 0, 0); border-right-color: rgba(0, 0, 0, 0); border-top-color: rgba(0, 0, 0, 0); border-bottom-color: rgba(0, 0, 0, 0); align-self: auto; align-items: center; justify-content: flex-start;" />
+            <ui:Button text="Salir al menu principal" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" style="position: absolute; top: 55%; left: 33%; right: 33%; overflow: visible; bottom: 30%; font-size: 14%; text-overflow: clip;" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

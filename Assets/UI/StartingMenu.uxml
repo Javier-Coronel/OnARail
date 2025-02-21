@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; position: relative; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.39);">
+        <ui:GroupBox name="StartingMenu" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; -unity-background-image-tint-color: rgb(160, 255, 134); background-color: rgb(160, 255, 134); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;">
+            <ui:Button text="Jugar" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Play" style="position: absolute; top: 25%; left: 40%; right: 40%; overflow: visible; bottom: 63%; font-size: 14%;" />
+            <ui:Button text="Salir" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Exit" style="position: absolute; top: 55%; left: 33%; right: 33%; overflow: visible; bottom: 30%; font-size: 14%; text-overflow: clip;" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

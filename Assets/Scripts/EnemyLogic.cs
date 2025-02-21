@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.U2D;
 [ExecuteAlways]
 public class EnemyLogic : MonoBehaviour

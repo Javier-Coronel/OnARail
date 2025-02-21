@@ -21,6 +21,7 @@ public class MovementAndControl : MonoBehaviour
     private float zMovement;
     private bool dash;
     public bool onDash = false;
+    public AudioClip dashSound;
     private int layer = 0;
 
     // Start is called before the first frame update
@@ -30,70 +31,61 @@ public class MovementAndControl : MonoBehaviour
     }
     void Update()
     {
-        xMovement = Input.GetAxis("Horizontal");
-        zMovement = Input.GetAxis("Vertical");
-        dash = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return); 
-        Vector3 movement = new Vector3(xMovement, 0, zMovement).normalized * velocity;
-        //transform.parent.rotation = Quaternion.LookRotation(transform.position, transform.position+movement);
-        if (transform.localPosition.x > maxMovementOnX)
-        {
-            transform.localPosition = new Vector3(maxMovementOnX, transform.localPosition.y, transform.localPosition.z);
-        }
-        else if (transform.localPosition.x < -maxMovementOnX)
-        {
-            transform.localPosition = new Vector3(-maxMovementOnX, transform.localPosition.y, transform.localPosition.z);
-        }
-        if (transform.localPosition.z > maxMovementOnZ)
-        {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, maxMovementOnZ);
-        }
-        else if (transform.localPosition.z < -maxMovementOnZ)
-        {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -maxMovementOnZ);
-        }
-        if (onDashDirection.x != 0f || onDashDirection.z != 0f)
-        {
-            
-            if (dashTimer >= dashTime)
+        if(!GameData.Instance.pauseMenuActivated){
+            xMovement = Input.GetAxis("Horizontal");
+            zMovement = Input.GetAxis("Vertical");
+            dash = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return); 
+            Vector3 movement = new Vector3(xMovement, 0, zMovement).normalized * velocity;
+            if (transform.localPosition.x > maxMovementOnX)
             {
-                dashTimer = 0;
-                GetComponent<MeshRenderer>().materials[0].color = Color.white;
-                onDashDirection.x = 0;
-                onDashDirection.z = 0;
-                gameObject.layer = layer;
-
-                GameData.Instance.playerCart.m_Speed = 1;
+                transform.localPosition = new Vector3(maxMovementOnX, transform.localPosition.y, transform.localPosition.z);
+            }
+            else if (transform.localPosition.x < -maxMovementOnX)
+            {
+                transform.localPosition = new Vector3(-maxMovementOnX, transform.localPosition.y, transform.localPosition.z);
+            }
+            if (transform.localPosition.z > maxMovementOnZ)
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, maxMovementOnZ);
+            }
+            else if (transform.localPosition.z < -maxMovementOnZ)
+            {
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -maxMovementOnZ);
+            }
+            if (onDashDirection.x != 0f || onDashDirection.z != 0f)
+            {
+                if (dashTimer >= dashTime)
+                {
+                    dashTimer = 0;
+                    GetComponent<MeshRenderer>().materials[0].color = Color.white;
+                    onDashDirection.x = 0;
+                    onDashDirection.z = 0;
+                    gameObject.layer = layer;
+                    GameData.Instance.playerCart.m_Speed = 1;
+                }
+                else
+                {
+                    transform.Translate(onDashDirection*Time.deltaTime);
+                }
+            }
+            else if (dash&&!onDash)
+            {
+                Dash(movement);
             }
             else
             {
-                transform.Translate(onDashDirection*Time.deltaTime);
+                transform.Translate(movement * Time.deltaTime);
+            }
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Throw(true);
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                Throw(false);
             }
         }
-        else if (dash&&!onDash)
-        {
-            Dash(movement);
-        }
-        else
-        {
-            transform.Translate(movement * Time.deltaTime);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            Throw(true);
-        }
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            Throw(false);
-        }
-    }
-    void OnTriggerStay(Collider other)
-    {
         
-        if (other.CompareTag("Interactable"))
-        {
-
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -149,6 +141,7 @@ public class MovementAndControl : MonoBehaviour
             ray.direction = new Vector3(ray.direction.x, 0, ray.direction.z);
             ray.origin = new Vector3(ray.origin.x+transform.localPosition.x, 0, ray.origin.z + transform.localPosition.z);
             Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers);
+            Debug.DrawRay(ray.origin,ray.direction,Color.white,Mathf.Infinity);
             //objectToThrow.SetActive(true);
             GameObject throwedObject = Instantiate(objectToThrow, hit.point, transform.rotation);
             throwedObject.SetActive(true);
@@ -170,5 +163,6 @@ public class MovementAndControl : MonoBehaviour
         onDashDirection = direction*dashSpeed;
         GameData.Instance.playerCart.m_Speed = 2;
         gameObject.layer = 0;
+        GameData.Instance.PlaySound(dashSound,0.6f,0.7f);
     }
 }

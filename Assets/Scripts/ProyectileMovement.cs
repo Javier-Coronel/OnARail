@@ -10,6 +10,10 @@ public class ProyectileMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(objective){
+           transform.rotation=Quaternion.LookRotation(objective.position - transform.position)*new Quaternion(1,0,0,1);
+
+        }
         transform.position =Vector3.MoveTowards(transform.position, objective?objective.position:(transform.position+transform.up), velocity*Time.deltaTime);
     }
 }
